@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Image as ImageIcon, Video, ExternalLink, Check, Copy, Share2, Maximize2, ChevronLeft, ChevronRight, Layers } from 'lucide-react'
+import { Download, Image, Video, ExternalLink, Check, Copy, Share2, Maximize2, ChevronLeft, ChevronRight, Layers } from 'lucide-react'
 
 function MediaPreview({ result }) {
   const [copied, setCopied] = useState(false)
@@ -52,18 +52,15 @@ function MediaPreview({ result }) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="relative group"
+      className="relative"
     >
-      {/* Glow border */}
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur-xl opacity-10 group-hover:opacity-20 transition duration-500"></div>
-      
-      <div className="relative glass-card p-8 rounded-3xl border border-gray-700/30 backdrop-blur-xl">
+      <div className="relative p-8 rounded-3xl border border-gray-700/30 bg-gray-900/40 backdrop-blur-sm">
         {/* Header */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">
-            <div className={`relative ${result.type === 'image' ? 'bg-gradient-to-br from-blue-500/20 to-blue-600/10' : 'bg-gradient-to-br from-purple-500/20 to-purple-600/10'} p-4 rounded-2xl border ${result.type === 'image' ? 'border-blue-500/30' : 'border-purple-500/30'}`}>
+            <div className={`relative ${result.type === 'image' ? 'bg-blue-500/10' : 'bg-purple-500/10'} p-4 rounded-2xl border ${result.type === 'image' ? 'border-blue-500/20' : 'border-purple-500/20'}`}>
               {result.type === 'image' ? (
-                <ImageIcon className="w-8 h-8 text-blue-400" />
+                <Image className="w-8 h-8 text-blue-400" />
               ) : (
                 <Video className="w-8 h-8 text-purple-400" />
               )}
@@ -82,8 +79,8 @@ function MediaPreview({ result }) {
           </div>
           
           <div className="flex items-center gap-3">
-            <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30">
-              <span className="text-sm font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <div className="px-4 py-2 rounded-xl bg-blue-500/10 border border-blue-500/20">
+              <span className="text-sm font-bold text-blue-400">
                 {result.type.toUpperCase()}
               </span>
             </div>
@@ -91,7 +88,7 @@ function MediaPreview({ result }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleShare}
-              className="p-3 rounded-xl bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/30 text-gray-300 hover:text-white transition-all"
+              className="p-3 rounded-xl bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700/30 text-gray-300 hover:text-white transition-all"
             >
               <Share2 className="w-5 h-5" />
             </motion.button>
@@ -123,7 +120,7 @@ function MediaPreview({ result }) {
             )}
             
             {/* Media Display */}
-            <div className="relative rounded-2xl overflow-hidden bg-gray-900/50">
+            <div className="relative rounded-2xl overflow-hidden bg-gray-900/30 border border-gray-700/20">
               {result.type === 'image' ? (
                 <motion.img
                   key={activeIndex}
@@ -185,7 +182,7 @@ function MediaPreview({ result }) {
         {/* Download Links */}
         <div className="space-y-6">
           {/* Download Link with Copy */}
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-gray-900/30 to-gray-900/50 backdrop-blur-sm border border-gray-700/30">
+          <div className="p-5 rounded-2xl bg-gray-900/20 backdrop-blur-sm border border-gray-700/20">
             <div className="flex items-center justify-between mb-3">
               <span className="text-lg font-semibold text-white flex items-center gap-2">
                 <Copy className="w-5 h-5 text-blue-400" />
@@ -220,24 +217,24 @@ function MediaPreview({ result }) {
             <motion.button
               whileHover={{ 
                 scale: 1.02,
-                boxShadow: "0 10px 40px rgba(59, 130, 246, 0.3)"
+                boxShadow: "0 10px 40px rgba(139, 92, 246, 0.5)"
               }}
               whileTap={{ scale: 0.98 }}
               onClick={() => handleDownload(result.downloadLink)}
-              className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold rounded-2xl hover:shadow-2xl transition-all text-lg group"
+              className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold rounded-2xl transition-all text-lg"
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-xl opacity-50 group-hover:opacity-70 transition duration-500"></div>
-              <span className="relative flex items-center gap-3">
-                <Download className="w-6 h-6" />
-                Download All ({result.urls.length})
-              </span>
+              <Download className="w-6 h-6" />
+              Download All ({result.urls.length})
             </motion.button>
             
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 10px 40px rgba(139, 92, 246, 0.3)"
+              }}
               whileTap={{ scale: 0.98 }}
               onClick={() => window.open(result.metadata.source, '_blank')}
-              className="flex items-center justify-center gap-3 px-6 py-4 bg-gray-800/50 hover:bg-gray-800/80 backdrop-blur-xl text-white font-semibold rounded-2xl hover:shadow-xl transition-all border border-gray-700/30 text-lg"
+              className="flex items-center justify-center gap-3 px-6 py-4 bg-gray-800/40 hover:bg-gray-700/50 backdrop-blur-sm text-white font-semibold rounded-2xl transition-all border border-gray-700/20 text-lg"
             >
               <ExternalLink className="w-6 h-6" />
               View Original on Pinterest
