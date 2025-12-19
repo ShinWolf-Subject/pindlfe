@@ -1,0 +1,180 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased bg-gray-950 text-gray-100 overflow-x-hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  }
+
+  /* Hide scrollbar but allow scrolling */
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    @apply bg-gray-900;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-blue-500 to-purple-500 rounded-full;
+  }
+
+  /* Selection style */
+  ::selection {
+    @apply bg-blue-500/30 text-white;
+  }
+
+  ::-moz-selection {
+    @apply bg-blue-500/30 text-white;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-gradient-to-br from-gray-900/40 to-gray-950/40 backdrop-blur-xl border border-gray-700/30 shadow-2xl;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    @apply relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    @apply absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg blur opacity-30;
+    z-index: -1;
+  }
+
+  /* Custom animations */
+  .animate-wave {
+    animation: wave 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .text-shadow-xl {
+    text-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .backdrop-blur-xs {
+    backdrop-filter: blur(4px);
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth transitions */
+  .smooth-transition {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Gradient backgrounds */
+  .bg-gradient-aurora {
+    background: linear-gradient(135deg, 
+      rgba(15, 23, 42, 0.9) 0%,
+      rgba(30, 41, 59, 0.8) 50%,
+      rgba(51, 65, 85, 0.7) 100%
+    );
+  }
+}
+
+/* Custom keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Smooth transitions for all elements */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Focus styles */
+*:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-opacity-50;
+}
+
+*:focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-opacity-50;
+}
+
+/* Disabled state */
+*:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Better image rendering */
+img {
+  @apply select-none;
+}
+
+/* Smooth scrolling for the whole app */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improved selection colors */
+::-moz-selection {
+  @apply bg-blue-500/30 text-white;
+}
+
+::selection {
+  @apply bg-blue-500/30 text-white;
+}
+
+/* Aurora canvas fix */
+canvas {
+  @apply fixed top-0 left-0 w-full h-full pointer-events-none;
+}
